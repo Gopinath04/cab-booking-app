@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
 const areaSchema = new mongoose.Schema({
-  name: { type: String, unique: true, required: true },
+  name: { type: String, required: true, unique: true },
+  fare: { type: Number, required: true }
 });
 
-export default mongoose.model("Area", areaSchema);
+const Area = mongoose.model("Area", areaSchema);
+
+export default Area;

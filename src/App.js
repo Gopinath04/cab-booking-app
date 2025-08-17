@@ -7,6 +7,7 @@ import Booking from "./pages/Booking";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Admin from "./pages/Admin";
+import Dashboard from "./pages/Dashboard";
 // import Header from "./components/header";
 import Footer from "./components/footer";
 import './styles/custom.css'; // Custom CSS for styling
@@ -15,9 +16,8 @@ import './styles/custom.css'; // Custom CSS for styling
 export const AppContext = React.createContext();
 
 const initialState = {
-  users: [{ id: 1, name: "Admin", email: "admin@test.com", password: "admin", role: "admin" }],
   currentUser: null,
-  areas: ["Andheri", "Bandra", "Powai"],
+//areas: ["Andheri", "Bandra", "Powai"],
   bookings: []
 };
 
@@ -48,6 +48,7 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/admin" element={<Admin />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   </main>
   <Footer />   {/* Always visible */}

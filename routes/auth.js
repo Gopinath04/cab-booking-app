@@ -1,7 +1,26 @@
-const express = require("express");
-const User = require("../models/User");
+// routes/auth.js
+import express from "express";
+import User from "../models/User.js";
 
 const router = express.Router();
+
+// 👤 Login API (User/Admin)
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find user by email and password
+    const user = await User.findOne({ email, password });
+    if (!user) return res.status(400).json({ error: "Invalid credentials" });
+
+    // Optional: check if admin
+    // const isAdmin = user.role === "admin";
+
+    res.json({ message: "Login successful", user });
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 // 👤 Signup API
 router.post("/signup", async (req, res) => {
@@ -38,4 +57,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

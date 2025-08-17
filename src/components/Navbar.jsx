@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AppContext } from "../App";
 
 export default function Navbar() {
   const { state, dispatch, nav } = useContext(AppContext);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   // Sync localStorage user with AppContext on load
   useEffect(() => {
@@ -30,8 +30,9 @@ export default function Navbar() {
           <Link className="nav-link" to="/">Home</Link>
           <Link className="nav-link" to="/areas">Areas</Link>
           <Link className="nav-link" to="/booking">Book</Link>
-          {isAdmin && <Link className="nav-link" to="/admin">Admin</Link>}
-          
+          {isAdmin && <Link className="nav-link" to="/dashboard">Dashboard</Link>}
+          {isAdmin && <Link className="nav-link" to="/admin">Area Management</Link>}
+
           {state.currentUser ? (
             <>
               <span className="badge bg-secondary">

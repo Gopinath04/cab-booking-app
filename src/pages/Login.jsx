@@ -28,8 +28,15 @@ export default function Login() {
         // 👉 You could also store user info in localStorage or context
         localStorage.setItem("user", JSON.stringify(data.user));
 
-        // Redirect to homepage
-        window.location.href = "/";
+        // Redirect based on user role
+        if (data.user.role === "admin") {
+          console.log("Redirecting admin to dashboard");
+          setTimeout(() => {
+            window.location.href = "/dashboard";
+          }, 300); // 300ms delay to allow console.log to show
+        } else {
+          window.location.href = "/";
+        }
       }
     } catch (err) {
       setError("Server error, please try again later");

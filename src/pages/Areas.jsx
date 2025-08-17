@@ -7,8 +7,8 @@ export default function Areas() {
   useEffect(() => {
     async function fetchAreas() {
       try {
-        const res = await axios.get("http://localhost:5000/api/bookings/areas");
-        setAreas(res.data.areas);
+        const res = await axios.get("http://localhost:5000/api/admin/areas");
+        setAreas(res.data);
       } catch (err) {
         console.error("Error fetching areas:", err);
       }
@@ -20,8 +20,13 @@ export default function Areas() {
     <div className="container mt-4">
       <h2>Available Cab Areas</h2>
       <ul className="list-group mt-3">
-        {areas.map((area, index) => (
-          <li key={index} className="list-group-item">{area}</li>
+        {areas.map((area) => (
+          <li key={area._id} className="list-group-item">
+            {area.name}{" "}
+            <span className="badge bg-info ms-2">
+              Fare: {area.fare ?? "-"}
+            </span>
+          </li>
         ))}
       </ul>
     </div>

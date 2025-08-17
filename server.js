@@ -1,3 +1,4 @@
+// server.js
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -5,7 +6,7 @@ import cors from "cors";
 // Import routes
 import authRoutes from "./routes/auth.js";
 import adminRoutes from "./routes/admin.js";
-import bookingRoutes from "./routes/booking.js"; // optional if you have booking routes
+import bookingRoutes from "./routes/booking.js";
 
 const app = express();
 
@@ -28,12 +29,10 @@ app.get("/", (req, res) => {
 });
 
 // Mount routes
-app.use("/api/auth", authRoutes);   // Auth routes (signup/login)
-app.use("/api/admin", adminRoutes); // Admin dashboard routes
-if (bookingRoutes) app.use("/api/booking", bookingRoutes); // Booking routes
+app.use("/api/auth", authRoutes);       // Signup/Login
+app.use("/api/admin", adminRoutes);     // Admin routes (areas, contacts)
+app.use("/api/booking", bookingRoutes); // Booking routes (areas, book cab)
 
 // Start server
 const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
