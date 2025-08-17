@@ -63,6 +63,7 @@ export default function BookingHistory() {
           <thead>
             <tr>
               <th>Pickup Date</th>
+              <th>Pickup Time</th>
               <th>Pickup Location</th>
               <th>Drop Location</th>
             </tr>
@@ -71,6 +72,7 @@ export default function BookingHistory() {
             {bookings.map((booking, idx) => (
               <tr key={idx}>
                 <td>{booking.pickupDate}</td>
+                <td>{booking.pickupTime ? new Date(`1970-01-01T${booking.pickupTime}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : ''}</td>
                 <td>{booking.pickupLocation}</td>
                 <td>{booking.dropLocation}</td>
               </tr>
