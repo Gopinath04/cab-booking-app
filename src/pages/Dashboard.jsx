@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import InnerBanner from "../components/innerbanner";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -28,8 +29,16 @@ export default function Dashboard() {
 
   if (!user) return null; // Prevent rendering until user is set
 
+    const bannerdata = {
+      title: "Admin Dashboard",
+      navtext: "admin panel",
+    };
+
   return (
-    <div className="container mt-4">
+    <article>
+      <InnerBanner bannertext={bannerdata} />
+   
+    <div className="container mt-5 mb-5">
       <h2>Welcome, {user.name}</h2>
       {/* Bookings Management */}
       <div>
@@ -66,5 +75,6 @@ export default function Dashboard() {
         </table>
       </div>
     </div>
+     </article>
   );
 }

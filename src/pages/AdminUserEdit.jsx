@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import InnerBanner from "../components/innerbanner";
 
 export default function AdminUserEdit() {
   const [users, setUsers] = useState([]);
@@ -47,9 +48,18 @@ export default function AdminUserEdit() {
     }
   };
 
+     const bannerdata = {
+   title: "Edit User",
+   navtext: "Manage your users",
+ };
+
+
   return (
+    <article>
+       <InnerBanner bannertext={bannerdata} />
+    
     <div className="container mt-5" style={{ maxWidth: "900px" }}>
-      <h2 className="mb-4">Admin: Edit User</h2>
+      {/* <h2 className="mb-4">Admin: Edit User</h2> */}
       {message && <div className="alert alert-info">{message}</div>}
       <div className="mb-4">
         <h5>User List</h5>
@@ -98,5 +108,6 @@ export default function AdminUserEdit() {
         </form>
       )}
     </div>
+    </article>
   );
 }

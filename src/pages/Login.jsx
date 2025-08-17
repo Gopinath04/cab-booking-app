@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import InnerBanner from "../components/innerbanner";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -51,10 +52,17 @@ export default function Login() {
     setLoading(false);
   };
 
+  const bannerdata = {
+  title: "Login",
+  navtext: "Access your account",
+};
+
   return (
+   <article>
+   <InnerBanner bannertext={bannerdata} />
     <form
       onSubmit={handleSubmit}
-      className="card p-4 shadow-sm mx-auto"
+      className=" p-4 mx-auto mt-5 mb-5"
       style={{ maxWidth: "400px" }}
     >
       <h2 className="h4 mb-3">Login</h2>
@@ -87,5 +95,6 @@ export default function Login() {
         {loading ? "Logging in..." : "Login"}
       </button>
     </form>
+    </article>
   );
 }

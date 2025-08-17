@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../App";
+import InnerBanner from "../components/innerbanner";
+
+
+const bannerdata = {
+title: "Booking History",
+navtext: "Manage your cab bookings",
+};
+
 
 export default function BookingHistory() {
   const { state } = useContext(AppContext);
@@ -13,13 +21,14 @@ export default function BookingHistory() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`/api/bookings?userId=${state.currentUser._id}`);
+        const res = await fetch(`http://localhost:5000/api/bookings?userId=${state.currentUser._id}`);
         const contentType = res.headers.get("content-type");
         if (!res.ok) throw new Error("Failed to fetch bookings");
         if (!contentType || !contentType.includes("application/json")) {
           throw new Error("Server returned invalid data format");
         }
-        const data = await res.json();
+        let data = await res.json();
+        if (!Array.isArray(data)) data = [];
         setBookings(data);
       } catch (err) {
         setError(err.message);
@@ -33,10 +42,17 @@ export default function BookingHistory() {
   if (!state.currentUser) {
     return <div className="container py-4">Please log in to view your booking history.</div>;
   }
+  console.log('Current user:', state.currentUser);
+  console.log('Bookings:', bookings);
 
   return (
+     <article>
+   <InnerBanner bannertext={bannerdata} />
+ 
     <div className="container py-4">
-      <h2>Booking History</h2>
+      
+      <p>Welcome, {state.currentUser.name}!</p>
+      
       {loading && <div>Loading...</div>}
       {error && <div className="text-danger">{error}</div>}
       {!loading && !error && bookings.length === 0 ? (
@@ -63,5 +79,6 @@ export default function BookingHistory() {
         </table>
       )}
     </div>
+    </article>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import InnerBanner from "../components/innerbanner";
 
 export default function Areas() {
   const [areas, setAreas] = useState([]);
@@ -16,8 +17,15 @@ export default function Areas() {
     fetchAreas();
   }, []);
 
+   const bannerdata = {
+   title: "Areas",
+   navtext: "Manage your cab areas",
+ };
+
   return (
-    <div className="container mt-4">
+     <article>
+   <InnerBanner bannertext={bannerdata} />
+    <div className="container mt-5 mb-5">
       <h2>Available Cab Areas</h2>
       <ul className="list-group mt-3">
         {areas.map((area) => (
@@ -30,5 +38,6 @@ export default function Areas() {
         ))}
       </ul>
     </div>
+    </article>
   );
 }

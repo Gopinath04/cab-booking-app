@@ -42,6 +42,7 @@ const bookingSchema = new mongoose.Schema({
   passengers: String,
   pickupLocation: String,
   dropLocation: String,
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Added userId field
   createdAt: { type: Date, default: Date.now }
 });
 const Booking = mongoose.models.Booking || mongoose.model("Booking", bookingSchema);
@@ -92,10 +93,15 @@ app.post("/api/bookings", async (req, res) => {
   }
 });
 
-// GET /api/bookings - Get all bookings
+// GET /api/bookings - Get all bookings or filter by userId
 app.get("/api/bookings", async (req, res) => {
   try {
-    const bookings = await Booking.find().sort({ createdAt: -1 });
+    const filter = {};
+    if (req.query.userId) {
+      filter.userId = req.query.userId;
+    }
+    const bookings = await Booking.find(filter).sort({ createdAt: -1 });
+    res.setHeader('Content-Type', 'application/json');
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch bookings" });

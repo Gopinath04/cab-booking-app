@@ -48,6 +48,12 @@ const BookCabForm = () => {
     }
   };
 
+  // Helper to get current time in HH:MM format
+  const getCurrentTime = () => {
+    const now = new Date();
+    return now.toTimeString().slice(0,5);
+  };
+
   if (!user || !user._id) {
     return (
       <div className="p-4 border rounded bg-light shadow-sm text-center">
@@ -75,11 +81,19 @@ const BookCabForm = () => {
       </div>
       <div className="mb-3">
         <label className="form-label">Pickup Date</label>
-        <input type="date" className="form-control" name="pickupDate" value={form.pickupDate} onChange={handleChange} required />
+        <input type="date" className="form-control" name="pickupDate" value={form.pickupDate} onChange={handleChange} required min={new Date().toISOString().split('T')[0]} />
       </div>
       <div className="mb-3">
         <label className="form-label">Pickup Time</label>
-        <input type="time" className="form-control" name="pickupTime" value={form.pickupTime} onChange={handleChange} required />
+        <input
+          type="time"
+          className="form-control"
+          name="pickupTime"
+          value={form.pickupTime}
+          onChange={handleChange}
+          required
+          min={form.pickupDate === new Date().toISOString().split('T')[0] ? getCurrentTime() : undefined}
+        />
       </div>
       <div className="mb-3">
         <label className="form-label">Passengers</label>

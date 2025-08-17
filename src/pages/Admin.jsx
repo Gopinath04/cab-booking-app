@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // if using react-router
+import InnerBanner from "../components/innerbanner";
 
 export default function Admin() {
   const [areas, setAreas] = useState([]);
@@ -90,8 +91,14 @@ export default function Admin() {
       setMessage(err.response?.data?.error || "Error updating area");
     }
   };
+  const bannerdata = {
+    title: "Manage Areas",
+    navtext: "Manage cab areas",
+  };
 
   return (
+    <article>
+      <InnerBanner bannertext={bannerdata} />
     <div className="container mt-4">
       {/* <h2>Admin Dashboard</h2> */}
       {message && <div className="alert alert-info">{message}</div>}
@@ -202,5 +209,6 @@ export default function Admin() {
         </table>
       </div> */}
     </div>
+    </article>
   );
 }

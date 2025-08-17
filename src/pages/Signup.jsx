@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import InnerBanner from "../components/innerbanner";
 
 export default function Signup() {
   const [formData, setFormData] = useState({ name: "", email: "", password: "", mobile: "" });
@@ -20,9 +21,16 @@ export default function Signup() {
       setMessage(err.response?.data?.error || "Signup failed");
     }
   };
+  const bannerdata = {
+    title: "Signup",
+    navtext: "Create your account",
+  };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "400px" }}>
+    <article>
+      <InnerBanner bannertext={bannerdata} />
+
+    <div className="container mt-5 mb-5" style={{ maxWidth: "400px" }}>
       <h2 className="mb-4">Signup</h2>
       {message && <div className="alert alert-info">{message}</div>}
       <form onSubmit={handleSubmit}>
@@ -42,8 +50,9 @@ export default function Signup() {
           <label className="form-label">Password*</label>
           <input type="password" name="password" className="form-control" value={formData.password} onChange={handleChange} required />
         </div>
-        <button type="submit" className="btn btn-primary w-100">Signup</button>
+        <button type="submit" className="btn btn-dark w-100">Signup</button>
       </form>
     </div>
+    </article>
   );
 }

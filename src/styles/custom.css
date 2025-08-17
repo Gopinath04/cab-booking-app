@@ -325,7 +325,7 @@ body {
 
 /* Nav Meu Styling */
 .nav-menu a {
-  padding: 0px 8px 0px 20px;
+  padding: 0px 10px 0px 10px;
   text-decoration: none;
   display: inline-block;
   color: #fff;
@@ -590,6 +590,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: all 0.3s ease 0s;
   cursor: pointer;
   position: relative;
+  text-decoration: none;
 }
 
 .primary-btn:focus {
@@ -608,9 +609,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   transition: all 0.3s ease 0s;
 }
 
-.primary-btn:hover {
-  color: #fff;
-}
+
 
 
 /*-------- start footer Area -------------*/
