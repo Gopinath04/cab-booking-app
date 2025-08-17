@@ -35,8 +35,8 @@ export default function HomeBanner() {
               Whether you enjoy city breaks or extended holidays in the sun, you
               can always improve your travel experiences by staying in a small.
             </p>
-            <a href="#" className="primary-btn text-uppercase">
-              Call for taxi
+            <a href="/booking" className="primary-btn text-uppercase">
+              Book a cab
             </a>
           </div>
         </div>
