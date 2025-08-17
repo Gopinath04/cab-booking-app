@@ -27,12 +27,19 @@ export default function Navbar() {
       <div className="container py-2 d-flex align-items-center">
         <Link to="/" className="navbar-brand fw-bold">CabBook</Link>
         <nav className="ms-auto d-flex gap-3 align-items-center">
-          <Link className="nav-link" to="/">Home</Link>
-          <Link className="nav-link" to="/areas">Areas</Link>
-          <Link className="nav-link" to="/booking">Book a Cab</Link>
+          {!isAdmin && (
+            <>
+              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/areas">Areas</Link>
+              <Link className="nav-link" to="/booking">Book a Cab</Link>
+            </>
+          )}
           {isAdmin && <Link className="nav-link" to="/dashboard">Dashboard</Link>}
           {isAdmin && <Link className="nav-link" to="/admin">Area Management</Link>}
           {isAdmin && <Link className="nav-link" to="/AdminUserEdit">Edit User</Link>}
+          {state.currentUser && (
+            <Link className="nav-link" to="/booking-history">Booking History</Link>
+          )}
 
           {state.currentUser ? (
             <>

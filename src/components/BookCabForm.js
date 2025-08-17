@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 const BookCabForm = () => {
-  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
+  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || 'null') : null;
   const [form, setForm] = useState({
-    name: user.name || '',
-    mobile: user.mobile || '',
-    email: user.email || '',
+    name: user?.name || '',
+    mobile: user?.mobile || '',
+    email: user?.email || '',
     pickupDate: '',
     pickupTime: '',
     passengers: '',
@@ -19,17 +19,27 @@ const BookCabForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Booking form data:', form); // Debug log
+    if (!user || !user._id) {
+      alert('User not found. Please log in again.');
+      return;
+    }
+    const bookingData = { ...form, userId: user._id };
+    if (!bookingData.userId) {
+      console.warn('Warning: userId is missing in bookingData!', bookingData);
+    } else {
+      console.log('Booking form data (with userId):', bookingData); // Debug log
+    }
     try {
       const response = await fetch('http://localhost:5000/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(bookingData),
       });
       if (response.ok) {
         alert('Cab booked!');
+        window.location.href = '/booking-history';
       } else {
         alert('Failed to book cab.');
       }
@@ -38,7 +48,7 @@ const BookCabForm = () => {
     }
   };
 
-  if (!user) {
+  if (!user || !user._id) {
     return (
       <div className="p-4 border rounded bg-light shadow-sm text-center">
         <h2 className="mb-4">Book a Cab</h2>

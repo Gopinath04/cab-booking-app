@@ -25,8 +25,14 @@ export default function Login() {
         alert("✅ Login successful!");
         console.log("User:", data.user);
 
-        // 👉 You could also store user info in localStorage or context
-        localStorage.setItem("user", JSON.stringify(data.user));
+        // Store user info in localStorage, ensuring _id is present for MongoDB relations
+        if (data.user && data.user._id) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+        } else {
+          setError("Login response missing user ID. Please contact support.");
+          setLoading(false);
+          return;
+        }
 
         // Redirect based on user role
         if (data.user.role === "admin") {

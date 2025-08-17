@@ -1,6 +1,7 @@
 import express from "express";
 import Booking from "../models/Booking.js";
 import Area from "../models/Area.js";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -15,29 +16,25 @@ router.get("/areas", async (req, res) => {
   }
 });
 
-// ✅ Book a cab
+// ✅ Book a cab (single route, ensures userId is stored as ObjectId)
 router.post("/bookings", async (req, res) => {
   try {
-    const {name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation} = req.body;
-
-    // Optional: validate that area exists
-    // const area = await Area.findById(areaId);
-    // if (!area) return res.status(400).json({ error: "Invalid area selected" });
-
-    const booking = new Booking({ name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation });
-    await booking.save();
-
-    res.json({ message: "Cab booked successfully", booking });
-  } catch (err) {
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
-// POST /bookings - Book a cab (for frontend form)
-router.post("/bookings", async (req, res) => {
-  try {
-    const { name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation } = req.body;
-    const booking = new Booking({ name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation });
+    const { userId, name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation } = req.body;
+    if (!userId) {
+      return res.status(400).json({ error: "userId is required for booking." });
+    }
+    const bookingData = {
+      userId: mongoose.Types.ObjectId(userId),
+      name,
+      mobile,
+      email,
+      pickupDate,
+      pickupTime,
+      passengers,
+      pickupLocation,
+      dropLocation
+    };
+    const booking = new Booking(bookingData);
     await booking.save();
     res.status(201).json({ message: "Booking created successfully", booking });
   } catch (err) {

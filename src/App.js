@@ -6,6 +6,7 @@ import Areas from "./pages/Areas";
 import Booking from "./pages/Booking";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import BookingHistory from "./pages/booking-history";
 import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
 import AdminUserEdit from "./pages/AdminUserEdit"; // Import AdminUserEdit
@@ -50,6 +51,7 @@ export default function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/booking-history" element={<BookingHistory />} />
       <Route path="/AdminUserEdit" element={<AdminUserEdit />} /> {/* Add route for AdminUserEdit */}
     </Routes>
   </main>
