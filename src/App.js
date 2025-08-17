@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
+import AdminUserEdit from "./pages/AdminUserEdit"; // Import AdminUserEdit
 // import Header from "./components/header";
 import Footer from "./components/footer";
 import './styles/custom.css'; // Custom CSS for styling
@@ -49,6 +50,7 @@ export default function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/AdminUserEdit" element={<AdminUserEdit />} /> {/* Add route for AdminUserEdit */}
     </Routes>
   </main>
   <Footer />   {/* Always visible */}

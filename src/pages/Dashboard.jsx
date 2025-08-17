@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import Admin from "./Admin";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -10,7 +9,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (!storedUser || storedUser.role !== "admin") {
+    if (!storedUser) {
       navigate("/login");
     } else {
       setUser(storedUser);
@@ -20,7 +19,7 @@ export default function Dashboard() {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/admin/bookings");
+      const res = await axios.get("http://localhost:5000/api/bookings");
       setBookings(res.data);
     } catch (err) {
       console.error(err);
@@ -32,28 +31,35 @@ export default function Dashboard() {
   return (
     <div className="container mt-4">
       <h2>Welcome, {user.name}</h2>
-      {/* {user.role === "admin" && <Admin />} */}
       {/* Bookings Management */}
       <div>
         <h4>All Bookings</h4>
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th>User Name</th>
+              <th>Name</th>
+              <th>Mobile</th>
               <th>Email</th>
-              <th>Area</th>
-              <th>Date</th>
-              <th>Time</th>
+              <th>Pickup Date</th>
+              <th>Pickup Time</th>
+              <th>Passengers</th>
+              <th>Pickup Location</th>
+              <th>Drop Location</th>
+              <th>Created At</th>
             </tr>
           </thead>
           <tbody>
             {bookings.map((b) => (
               <tr key={b._id}>
-                <td>{b.user?.name}</td>
-                <td>{b.user?.email}</td>
-                <td>{b.area}</td>
-                <td>{new Date(b.date).toLocaleDateString()}</td>
-                <td>{b.time}</td>
+                <td>{b.name}</td>
+                <td>{b.mobile}</td>
+                <td>{b.email}</td>
+                <td>{b.pickupDate}</td>
+                <td>{b.pickupTime}</td>
+                <td>{b.passengers}</td>
+                <td>{b.pickupLocation}</td>
+                <td>{b.dropLocation}</td>
+                <td>{new Date(b.createdAt).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>

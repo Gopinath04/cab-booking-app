@@ -16,20 +16,32 @@ router.get("/areas", async (req, res) => {
 });
 
 // ✅ Book a cab
-router.post("/book", async (req, res) => {
+router.post("/bookings", async (req, res) => {
   try {
-    const { userId, areaId, date, time } = req.body;
+    const {name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation} = req.body;
 
     // Optional: validate that area exists
-    const area = await Area.findById(areaId);
-    if (!area) return res.status(400).json({ error: "Invalid area selected" });
+    // const area = await Area.findById(areaId);
+    // if (!area) return res.status(400).json({ error: "Invalid area selected" });
 
-    const booking = new Booking({ userId, areaId, date, time });
+    const booking = new Booking({ name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation });
     await booking.save();
 
     res.json({ message: "Cab booked successfully", booking });
   } catch (err) {
     res.status(500).json({ error: "Server error" });
+  }
+});
+
+// POST /bookings - Book a cab (for frontend form)
+router.post("/bookings", async (req, res) => {
+  try {
+    const { name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation } = req.body;
+    const booking = new Booking({ name, mobile, email, pickupDate, pickupTime, passengers, pickupLocation, dropLocation });
+    await booking.save();
+    res.status(201).json({ message: "Booking created successfully", booking });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to create booking" });
   }
 });
 

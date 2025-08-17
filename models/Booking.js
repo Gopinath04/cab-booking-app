@@ -7,4 +7,4 @@ const bookingSchema = new mongoose.Schema({
   time: String,
 });
 
-export default mongoose.model("Booking", bookingSchema);
+export default mongoose.model("bookings", bookingSchema);
